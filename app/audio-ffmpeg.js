@@ -55,8 +55,9 @@ export async function extractWav(blob, { maxSeconds = 300, onProgress, name = ''
   const input = `input.${ext}`;
   const output = 'out.wav';
 
-  const buf = new Uint8Array(await blob.arrayBuffer());
+  let buf = new Uint8Array(await blob.arrayBuffer());
   await ff.writeFile(input, buf);
+  buf = null; // 让 GC 早点回收，手机上内存紧张
   onProgress?.(0.05);
 
   const onFF = ({ progress }) => {
