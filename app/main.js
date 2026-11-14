@@ -7,6 +7,7 @@ import { buildSentences } from './subtitle.js';
 import { imported, mediaUrl, takeShared } from './importer.js';
 import { collect } from './collect.js';
 import { downloadBackup, importBackup } from './backup.js';
+import { transcribeFile } from './asr-local.js';
 
 const app = $('#app');
 const sheet = $('#sheet');
@@ -798,13 +799,56 @@ async function viewImport() {
     }
   }
 
+  const asrBtn = h('button', { class: 'ctl', style: 'width:100%;margin-top:4px', onclick: runAsr },
+    '🎙 没有字幕？在本机自动生成');
+  const asrHint = h('p', { class: 'muted', style: 'margin:8px 0 0' },
+    'Whisper 在这台手机上跑，音频不上传。3 分钟的视频大概等 3–8 分钟，等的时候别锁屏。');
+
+  let asrBusy = false;
+  async function runAsr() {
+    if (asrBusy) return;
+    if (!state.file) return toast('先选视频');
+    if (state.file.size > 400e6) return toast('文件超过 400MB，先剪短一点再导入');
+    asrBusy = true;
+    asrBtn.disabled = true;
+    const t0 = Date.now();
+    const tick = setInterval(() => {
+      asrHint.textContent = `处理中…已等 ${((Date.now() - t0) / 1000).toFixed(0)} 秒`;
+    }, 1000);
+    try {
+      const model = store.settings().model || 'tiny';
+      const res = await transcribeFile(state.file, {
+        model,
+        onProgress: (p) => {
+          if (p.phase === 'model') asrHint.textContent = `准备模型 ${Math.round((p.pct || 0) * 100)}%`;
+          else if (p.phase === 'decode') asrHint.textContent = '解析音频…';
+          else if (p.phase === 'asr') asrHint.textContent = `识别中…（音频 ${Math.round(p.seconds)} 秒）`;
+        },
+      });
+      state.sentences = res.sentences;
+      status.textContent = `识别出 ${res.sentences.length} 句（音频 ${Math.round(res.duration)} 秒）。检查一下，没问题点「导入」。`;
+      status.style.color = 'var(--good)';
+      asrHint.textContent = `用时 ${((Date.now() - t0) / 1000).toFixed(0)} 秒。不满意可以在设置里换「更准版」再跑一次。`;
+    } catch (e) {
+      status.textContent = '识别失败：' + (e.message || e);
+      status.style.color = 'var(--bad)';
+      asrHint.textContent = '可能是模型文件没下来，或者这个音频格式解不开。也可以改用手动字幕。';
+    } finally {
+      clearInterval(tick);
+      asrBusy = false;
+      asrBtn.disabled = false;
+    }
+  }
+
   const go = h('button', {
     class: 'ctl primary',
     style: 'width:100%',
     onclick: async () => {
       if (!state.file) return toast('先选一个视频文件');
-      if (!state.en) return toast('还要选英文字幕（.srt 或 .vtt）');
-      if (!state.sentences) tryParse();
+      if (!state.sentences) {
+        if (!state.en) return toast('要么点「自动生成」，要么选一个英文字幕');
+        tryParse();
+      }
       if (!state.sentences) return toast('字幕解析失败，检查一下文件');
       go.disabled = true;
       go.textContent = '存到本机…';
@@ -823,16 +867,21 @@ async function viewImport() {
   return h('div', {},
     topbar('导入自己的视频', null, { back: true }),
     h('div', { class: 'notice' },
-      '视频和字幕只存在这台手机里，不上传。字幕要 SRT 或 VTT——B 站/YouTube 的字幕批量下载下来就是这两种。'),
+      '视频只存在这台手机里，不上传。字幕有两种给法：自己选 SRT/VTT 文件，或者点下面的按钮让它在本机自动生成。'),
     h('div', { class: 'card' },
       h('div', { class: 'field' }, h('label', {}, '视频 / 音频'), videoInput),
-      h('div', { class: 'field' }, h('label', {}, '英文字幕（必须）'), enInput),
-      h('div', { class: 'field' }, h('label', {}, '中文字幕（可选）'), zhInput),
+      h('div', { class: 'field', style: 'background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:16px' },
+        h('label', { style: 'margin-bottom:8px' }, '自动生成字幕（推荐）'),
+        asrBtn,
+        asrHint
+      ),
+      h('div', { class: 'field' }, h('label', {}, '或者：自己选英文字幕'), enInput),
+      h('div', { class: 'field' }, h('label', {}, '中文字幕（可选，自动生成的不带中文）'), zhInput),
       h('div', { class: 'field' }, h('label', {}, '名字'), nameInput),
       status,
       h('div', { style: 'margin-top:14px' }, go)
     ),
-    h('p', { class: 'muted' }, '长视频（超过 20 分钟）在手机上可能要等久一点；句子太多也会占用不少存储。')
+    h('p', { class: 'muted' }, '自动生成只适合 3 分钟以内的片段；再长会等到没耐心。句子太多也会占用不少存储。')
   );
 }
 
@@ -968,6 +1017,15 @@ async function viewSettings() {
           h('option', { value: 'doubao', disabled: true }, '豆包识别（待接入）')
         ),
         h('p', { class: 'muted', style: 'margin:6px 0 0' }, '上面「语音识别」那行如果显示 ✕，就说明这个浏览器没有识别接口，先用「只录音」也能练。')
+      ),
+      h('div', { class: 'field' },
+        h('label', {}, '自动生成字幕用的模型'),
+        h('select', {
+          onchange: (e) => { store.saveSettings({ model: e.target.value }); toast('已保存'); },
+        },
+          h('option', { value: 'tiny', selected: (s.model || 'tiny') === 'tiny' ? 'selected' : null }, '快速版 whisper-tiny（43MB，约 1 倍实时）'),
+          h('option', { value: 'base', selected: s.model === 'base' ? 'selected' : null }, '更准版 whisper-base（79MB，慢 2–3 倍）')
+        )
       )
     ),
 
