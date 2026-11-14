@@ -1,0 +1,81 @@
+{
+  "id": "airport-checkin",
+  "title": "机场值机 · 托运超重",
+  "title_en": "Airport Check-in",
+  "tag": "旅行",
+  "level": "A2",
+  "intro": "值机柜台最常听到的十句话。重点练数字、行李和登机口信息。",
+  "format": "sentence-audio",
+  "sentences": [
+    {
+      "role": "staff",
+      "en": "Good morning. May I see your passport and ticket, please?",
+      "zh": "早上好，请出示您的护照和机票。",
+      "tip": "",
+      "audio": "s/01.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Here you are. I'd like to check in for the flight to London.",
+      "zh": "给你。我想办理去伦敦的航班值机。",
+      "tip": "I'd like to 读成 /aɪd laɪk tə/，d 和 t 都轻。",
+      "audio": "s/02.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Certainly. Are you checking any bags today?",
+      "zh": "好的。今天有行李要托运吗？",
+      "tip": "",
+      "audio": "s/03.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Just this one, and I'll keep the small bag with me.",
+      "zh": "就这一件，小包我随身带着。",
+      "tip": "",
+      "audio": "s/04.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Please put it on the scale. It's two kilos over the limit.",
+      "zh": "请放上传送带。超重两公斤。",
+      "tip": "kilos 重音在第一音节 /ˈkiːloʊz/。",
+      "audio": "s/05.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Oh, how much would the extra charge be?",
+      "zh": "噢，超重费是多少？",
+      "tip": "extra charge 连读成 /ˈekstrə tʃɑːdʒ/。",
+      "audio": "s/06.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "That'll be thirty pounds, or you can move some items to your carry-on.",
+      "zh": "三十英镑；或者您可以把一些东西挪到随身行李里。",
+      "tip": "",
+      "audio": "s/07.mp3"
+    },
+    {
+      "role": "you",
+      "en": "I'll move a few things instead. Thanks for the tip.",
+      "zh": "那我还是拿点东西出来吧，谢谢提醒。",
+      "tip": "",
+      "audio": "s/08.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "No problem. Here's your boarding pass. Gate twenty-two, boarding at ten forty.",
+      "zh": "没问题。这是登机牌。22 号登机口，十点四十登机。",
+      "tip": "boarding 的 oa 读 /ɔː/。",
+      "audio": "s/09.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Great, thank you. Have a nice day.",
+      "zh": "好的，谢谢，祝你今天愉快。",
+      "tip": "",
+      "audio": "s/10.mp3"
+    }
+  ]
+}

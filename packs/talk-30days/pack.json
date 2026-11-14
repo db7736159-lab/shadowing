@@ -1,0 +1,235 @@
+{
+  "id": "talk-30days",
+  "title": "Try something new for 30 days（TED 演讲）",
+  "title_en": "Try something new for 30 days",
+  "tag": "真人视频",
+  "level": "B1-B2",
+  "intro": "TED 演讲原声，逐句跟读。演讲语速偏快，先慢速 0.7x 跟两遍再原速。",
+  "format": "timeline",
+  "video": "media.mp4",
+  "duration": 186,
+  "source": {
+    "name": "TED",
+    "url": "https://www.ted.com/talks/matt_cutts_try_something_new_for_30_days",
+    "license": "CC BY-NC-ND 4.0（个人学习用）"
+  },
+  "sentences": [
+    {
+      "role": "speaker",
+      "en": "A few years ago, I felt like I was stuck in a rut, so I decided to follow in the footsteps of the great American philosopher, Morgan Spurlock, and try something new for 30 days.",
+      "zh": "几年前，我感觉对老一套感到枯燥乏味，所以我决定追随伟大的美国哲学家摩根·斯普尔洛克的脚步，尝试做新事情30天。",
+      "start": 0.0,
+      "end": 12.98
+    },
+    {
+      "role": "speaker",
+      "en": "The idea is actually pretty simple.",
+      "zh": "这个想法的确是非常简单。",
+      "start": 13.52,
+      "end": 15.28
+    },
+    {
+      "role": "speaker",
+      "en": "Think about something you've always wanted to add to your life and try it for the next 30 days.",
+      "zh": "考虑下，你常想在你生命中做的一些事情接下来30天尝试做这些。",
+      "start": 15.68,
+      "end": 20.98
+    },
+    {
+      "role": "speaker",
+      "en": "It turns out 30 days is just about the right amount of time to add a new habit or subtract a habit -- like watching the news -- from your life.",
+      "zh": "这就是，30天刚好是这么一段合适的时间去养成一个新的习惯或者改掉一个习惯--例如看新闻--在你生活中。",
+      "start": 21.9,
+      "end": 30.98
+    },
+    {
+      "role": "speaker",
+      "en": "There's a few things I learned while doing these 30-day challenges.",
+      "zh": "当我在30天做这些挑战性事情时，我学到以下一些事。",
+      "start": 31.0,
+      "end": 34.19
+    },
+    {
+      "role": "speaker",
+      "en": "The first was, instead of the months flying by, forgotten, the time was much more memorable.",
+      "zh": "第一件事是，取代了飞逝而过易被遗忘的岁月的是这段时间非常的更加令人难忘。",
+      "start": 34.62,
+      "end": 41.98
+    },
+    {
+      "role": "speaker",
+      "en": "This was part of a challenge I did to take a picture every day for a month.",
+      "zh": "挑战的一部分是要一个月内每天我要去拍摄一张照片。",
+      "start": 42.0,
+      "end": 45.57
+    },
+    {
+      "role": "speaker",
+      "en": "And I remember exactly where I was and what I was doing that day.",
+      "zh": "我清楚地记得那一天我所处的位置我都在干什么。",
+      "start": 45.6,
+      "end": 50.02
+    },
+    {
+      "role": "speaker",
+      "en": "I also noticed that as I started to do more and harder 30-day challenges, my self-confidence grew.",
+      "zh": "我也注意到随着我开始做更多的，更难的30天里具有挑战性的事时，我自信心也增强了。",
+      "start": 51.13,
+      "end": 56.98
+    },
+    {
+      "role": "speaker",
+      "en": "I went from desk-dwelling computer nerd to the kind of guy who bikes to work. For fun!",
+      "zh": "我从一个台式计算机宅男极客变成了一个爱骑自行车去工作的人--为了玩乐。",
+      "start": 57.58,
+      "end": 63.84
+    },
+    {
+      "role": "speaker",
+      "en": "(Laughter) Even last year, I ended up hiking up Mt. Kilimanjaro, the highest mountain in Africa.",
+      "zh": "为了玩乐。甚至去年，我完成了在非洲最高山峰乞力马扎罗山的远足。",
+      "start": 63.87,
+      "end": 69.98
+    },
+    {
+      "role": "speaker",
+      "en": "I would never have been that adventurous before I started my 30-day challenges.",
+      "zh": "在我开始这30天做挑战性的事之前我从来没有这样爱冒险过。",
+      "start": 70.0,
+      "end": 75.02
+    },
+    {
+      "role": "speaker",
+      "en": "I also figured out that if you really want something badly enough, you can do anything for 30 days.",
+      "zh": "我也认识到如果你真想一些槽糕透顶的事，你可以在30天里做这些事。",
+      "start": 76.0,
+      "end": 82.98
+    },
+    {
+      "role": "speaker",
+      "en": "Have you ever wanted to write a novel?",
+      "zh": "你曾想写小说吗？每年11月，",
+      "start": 84.11,
+      "end": 85.97
+    },
+    {
+      "role": "speaker",
+      "en": "Every November, tens of thousands of people try to write their own 50,000-word novel, from scratch, in 30 days.",
+      "zh": "数以万计的人们在30天里，从零起点尝试写他们自己的5万字小说。",
+      "start": 86.96,
+      "end": 94.98
+    },
+    {
+      "role": "speaker",
+      "en": "It turns out, all you have to do is write 1,667 words a day for a month. So I did.",
+      "zh": "这结果就是，你所要去做的事就是每天写1667个字要写一个月。所以我做到了。",
+      "start": 95.66,
+      "end": 103.98
+    },
+    {
+      "role": "speaker",
+      "en": "By the way, the secret is not to go to sleep until you've written your words for the day.",
+      "zh": "顺便说一下，秘密是除非在一天里你已经写完了1667个字，要不你就甭想睡觉。",
+      "start": 104.0,
+      "end": 108.98
+    },
+    {
+      "role": "speaker",
+      "en": "You might be sleep-deprived, but you'll finish your novel.",
+      "zh": "你可能被剥夺睡眠，但你将会完成你的小说。",
+      "start": 109.53,
+      "end": 112.7
+    },
+    {
+      "role": "speaker",
+      "en": "Now is my book the next great American novel?",
+      "zh": "那么我写的书会是下一部伟大的美国小说吗？",
+      "start": 113.77,
+      "end": 116.98
+    },
+    {
+      "role": "speaker",
+      "en": "No. I wrote it in a month. It's awful.",
+      "zh": "不是的。我在一个月内写完它。它看上去太可怕了。",
+      "start": 117.45,
+      "end": 120.84
+    },
+    {
+      "role": "speaker",
+      "en": "(Laughter) But for the rest of my life, if I meet John Hodgman at a TED party, I don't have to say, \"I'm a computer scientist.\"",
+      "zh": "它看上去太可怕了。但在我的余生，如果我在一个TED聚会上遇见约翰·霍奇曼，我不必开口说，“我是一个电脑科学家。”",
+      "start": 120.86,
+      "end": 130.98
+    },
+    {
+      "role": "speaker",
+      "en": "No, no, if I want to, I can say, \"I'm a novelist.\"",
+      "zh": "不，不会的，如果我想我可以说，“我是一个小说家。”",
+      "start": 131.0,
+      "end": 134.34
+    },
+    {
+      "role": "speaker",
+      "en": "(Laughter) So here's one last thing I'd like to mention.",
+      "zh": "（笑声）我这儿想提的最后一件事。",
+      "start": 134.36,
+      "end": 139.98
+    },
+    {
+      "role": "speaker",
+      "en": "I learned that when I made small, sustainable changes, things I could keep doing, they were more likely to stick.",
+      "zh": "当我做些小的，持续性的变化，我可以不断尝试做的事时，我学到我可以把它们更容易地坚持做下来。",
+      "start": 140.0,
+      "end": 147.22
+    },
+    {
+      "role": "speaker",
+      "en": "There's nothing wrong with big, crazy challenges.",
+      "zh": "这和又大又疯狂的具有挑战性的事情无关。",
+      "start": 147.25,
+      "end": 149.98
+    },
+    {
+      "role": "speaker",
+      "en": "In fact, they're a ton of fun.",
+      "zh": "事实上，它们的乐趣无穷。",
+      "start": 150.0,
+      "end": 152.37
+    },
+    {
+      "role": "speaker",
+      "en": "But they're less likely to stick.",
+      "zh": "但是，它们就不太可能坚持做下来。",
+      "start": 152.83,
+      "end": 154.43
+    },
+    {
+      "role": "speaker",
+      "en": "When I gave up sugar for 30 days, day 31 looked like this.",
+      "zh": "当我在30天里拒绝吃糖果，31天后看上去就像这样。（笑声）",
+      "start": 155.25,
+      "end": 159.66
+    },
+    {
+      "role": "speaker",
+      "en": "(Laughter) So here's my question to you: What are you waiting for?",
+      "zh": "（笑声）所以我给大家提的问题是：大家还在等什么呀？",
+      "start": 159.68,
+      "end": 166.21
+    },
+    {
+      "role": "speaker",
+      "en": "I guarantee you the next 30 days are going to pass whether you like it or not, so why not think about something you have always wanted to try and give it a shot!",
+      "zh": "我保准大家在未来的30天会去经历你喜欢或者不喜欢的事，那么为什么不考虑一些你常想去尝试并在未来30天里试试",
+      "start": 166.23,
+      "end": 178.13
+    },
+    {
+      "role": "speaker",
+      "en": "For the next 30 days. Thanks. (Applause)",
+      "zh": "给自己一个机会。谢谢。（掌声）",
+      "start": 178.71,
+      "end": 185.88
+    }
+  ]
+}

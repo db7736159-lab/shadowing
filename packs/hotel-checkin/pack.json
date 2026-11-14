@@ -1,0 +1,81 @@
+{
+  "id": "hotel-checkin",
+  "title": "酒店入住 · 换安静房",
+  "title_en": "Hotel Check-in",
+  "tag": "旅行",
+  "level": "A2",
+  "intro": "前台常用句：房型、早餐、朝向、Wi-Fi、退房时间。",
+  "format": "sentence-audio",
+  "sentences": [
+    {
+      "role": "staff",
+      "en": "Good evening. Do you have a reservation with us?",
+      "zh": "晚上好，您有预订吗？",
+      "tip": "",
+      "audio": "s/01.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Yes, under the name Chen. I booked a double room for three nights.",
+      "zh": "有的，姓陈。我订了一间双人房，住三晚。",
+      "tip": "",
+      "audio": "s/02.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Let me check. Yes, here it is. Could I see your ID, please?",
+      "zh": "我查一下。找到了。可以看下您的证件吗？",
+      "tip": "",
+      "audio": "s/03.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Sure. Is breakfast included in the price?",
+      "zh": "可以。房价含早餐吗？",
+      "tip": "",
+      "audio": "s/04.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "It is, from seven to ten in the morning on the second floor.",
+      "zh": "含的，早上七点到十点，在二楼。",
+      "tip": "",
+      "audio": "s/05.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Great. Could I get a room away from the street? I'm a light sleeper.",
+      "zh": "太好了。能给我一间不临街的房间吗？我睡觉很轻。",
+      "tip": "",
+      "audio": "s/06.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "I'll put you on the eighth floor, facing the garden.",
+      "zh": "我给您安排八楼，朝向花园。",
+      "tip": "",
+      "audio": "s/07.mp3"
+    },
+    {
+      "role": "you",
+      "en": "That sounds perfect. What's the wifi password?",
+      "zh": "那太好了。Wi-Fi 密码是什么？",
+      "tip": "",
+      "audio": "s/08.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "It's on the card in your room. Check-out is at noon.",
+      "zh": "房间里的卡片上写着。退房时间是中午十二点。",
+      "tip": "",
+      "audio": "s/09.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Thanks a lot. Have a good night.",
+      "zh": "多谢，晚安。",
+      "tip": "",
+      "audio": "s/10.mp3"
+    }
+  ]
+}

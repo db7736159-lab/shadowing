@@ -1,0 +1,81 @@
+{
+  "id": "doctor-visit",
+  "title": "看医生 · 嗓子疼咳嗽",
+  "title_en": "At the Doctor's",
+  "tag": "生活",
+  "level": "B1",
+  "intro": "描述症状、问严重程度、问要不要吃药。医学词汇不多，够用就好。",
+  "format": "sentence-audio",
+  "sentences": [
+    {
+      "role": "staff",
+      "en": "What brings you in today?",
+      "zh": "今天哪里不舒服？",
+      "tip": "口语高频问法，等于 What's the problem。",
+      "audio": "s/01.mp3"
+    },
+    {
+      "role": "you",
+      "en": "I've had a sore throat and a cough for about four days.",
+      "zh": "我嗓子疼、咳嗽，大概四天了。",
+      "tip": "I've had 的 v 和 h 连读很轻。",
+      "audio": "s/02.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Any fever or headache?",
+      "zh": "有发烧或头痛吗？",
+      "tip": "",
+      "audio": "s/03.mp3"
+    },
+    {
+      "role": "you",
+      "en": "A slight fever last night, but no headache.",
+      "zh": "昨晚有点低烧，没有头痛。",
+      "tip": "",
+      "audio": "s/04.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Let me take a look at your throat. Open wide, please.",
+      "zh": "我看一下你的嗓子。请张大嘴。",
+      "tip": "",
+      "audio": "s/05.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Is it serious? Do I need antibiotics?",
+      "zh": "严重吗？需要吃抗生素吗？",
+      "tip": "antibiotics 重音在 /baɪ/。",
+      "audio": "s/06.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "It looks like a common cold, so antibiotics won't help. Rest and fluids.",
+      "zh": "看起来是普通感冒，抗生素没用。多休息、多喝水。",
+      "tip": "",
+      "audio": "s/07.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Should I take anything for the cough?",
+      "zh": "咳嗽需要吃什么药吗？",
+      "tip": "",
+      "audio": "s/08.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "You can take this syrup twice a day. Come back if it gets worse.",
+      "zh": "这个糖浆一天两次。加重了再来。",
+      "tip": "syrup 读 /ˈsɪrəp/，不是 /ˈsaɪrəp/。",
+      "audio": "s/09.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Got it. Thanks, doctor.",
+      "zh": "明白了，谢谢医生。",
+      "tip": "",
+      "audio": "s/10.mp3"
+    }
+  ]
+}

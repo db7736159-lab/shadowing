@@ -1,0 +1,60 @@
+{
+  "packs": [
+    {
+      "id": "talk-30days",
+      "title": "Try something new for 30 days（TED 演讲）",
+      "title_en": "Try something new for 30 days",
+      "tag": "真人视频",
+      "level": "B1-B2",
+      "count": 31
+    },
+    {
+      "id": "airport-checkin",
+      "title": "机场值机 · 托运超重",
+      "title_en": "Airport Check-in",
+      "tag": "旅行",
+      "level": "A2",
+      "count": 10
+    },
+    {
+      "id": "cafe-order",
+      "title": "咖啡店点单 · 换奶少糖",
+      "title_en": "Ordering at a Café",
+      "tag": "旅行",
+      "level": "A2",
+      "count": 10
+    },
+    {
+      "id": "hotel-checkin",
+      "title": "酒店入住 · 换安静房",
+      "title_en": "Hotel Check-in",
+      "tag": "旅行",
+      "level": "A2",
+      "count": 10
+    },
+    {
+      "id": "doctor-visit",
+      "title": "看医生 · 嗓子疼咳嗽",
+      "title_en": "At the Doctor's",
+      "tag": "生活",
+      "level": "B1",
+      "count": 10
+    },
+    {
+      "id": "rent-viewing",
+      "title": "看房租房 · 房租押金",
+      "title_en": "Viewing an Apartment",
+      "tag": "生活",
+      "level": "B1",
+      "count": 10
+    },
+    {
+      "id": "phone-booking",
+      "title": "打电话预约 · 改时间",
+      "title_en": "Booking by Phone",
+      "tag": "生活",
+      "level": "B1",
+      "count": 10
+    }
+  ]
+}

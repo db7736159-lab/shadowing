@@ -1,0 +1,81 @@
+{
+  "id": "cafe-order",
+  "title": "咖啡店点单 · 换奶少糖",
+  "title_en": "Ordering at a Café",
+  "tag": "旅行",
+  "level": "A2",
+  "intro": "点单、改配方、问价格、要小票，一次练全。",
+  "format": "sentence-audio",
+  "sentences": [
+    {
+      "role": "staff",
+      "en": "Hi there, what can I get for you today?",
+      "zh": "你好，今天想喝点什么？",
+      "tip": "what can I 连起来像 /wʌdəkaɪ/。",
+      "audio": "s/01.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Could I get a large iced latte, please?",
+      "zh": "可以给我一个大杯冰拿铁吗？",
+      "tip": "",
+      "audio": "s/02.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Sure. Would you like it with regular or oat milk?",
+      "zh": "好的。要普通牛奶还是燕麦奶？",
+      "tip": "",
+      "audio": "s/03.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Oat milk, please. And could you make it less sweet?",
+      "zh": "燕麦奶。能做得不那么甜吗？",
+      "tip": "",
+      "audio": "s/04.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Of course. Anything to eat with that?",
+      "zh": "当然。要配点什么吃的吗？",
+      "tip": "",
+      "audio": "s/05.mp3"
+    },
+    {
+      "role": "you",
+      "en": "What's in that sandwich on the top shelf?",
+      "zh": "最上层那个三明治里有什么？",
+      "tip": "",
+      "audio": "s/06.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Chicken, avocado, and a little mayo. It's really good.",
+      "zh": "鸡肉、牛油果，还有点蛋黄酱。很好吃。",
+      "tip": "",
+      "audio": "s/07.mp3"
+    },
+    {
+      "role": "you",
+      "en": "I'll take one, then. How much is that altogether?",
+      "zh": "那我来一个。一共多少钱？",
+      "tip": "altogether 重音在 /ɔːl/ 上。",
+      "audio": "s/08.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "That's nine eighty. Card or cash?",
+      "zh": "九块八。刷卡还是现金？",
+      "tip": "",
+      "audio": "s/09.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Card, please. Could I get a receipt?",
+      "zh": "刷卡。能给我张小票吗？",
+      "tip": "receipt 的 p 不发音：/rɪˈsiːt/。",
+      "audio": "s/10.mp3"
+    }
+  ]
+}

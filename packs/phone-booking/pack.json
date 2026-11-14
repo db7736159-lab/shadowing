@@ -1,0 +1,81 @@
+{
+  "id": "phone-booking",
+  "title": "打电话预约 · 改时间",
+  "title_en": "Booking by Phone",
+  "tag": "生活",
+  "level": "B1",
+  "intro": "电话里没有表情和口型，最难的是没听清时怎么说。",
+  "format": "sentence-audio",
+  "sentences": [
+    {
+      "role": "staff",
+      "en": "Good afternoon, Riverside Dental. How can I help?",
+      "zh": "下午好，河畔牙科。有什么可以帮您？",
+      "tip": "",
+      "audio": "s/01.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Hi, I'd like to book a cleaning appointment, please.",
+      "zh": "你好，我想预约洗牙。",
+      "tip": "",
+      "audio": "s/02.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Of course. Are you a patient with us already?",
+      "zh": "好的。您是我们的老病人吗？",
+      "tip": "",
+      "audio": "s/03.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Yes, I came in last spring. My name is Li Wei.",
+      "zh": "是的，去年春天来过。我叫李伟。",
+      "tip": "",
+      "audio": "s/04.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Got it. We have Thursday at three or Friday morning at ten.",
+      "zh": "找到了。周四下午三点或者周五上午十点。",
+      "tip": "",
+      "audio": "s/05.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Thursday works better for me. How long will it take?",
+      "zh": "周四更合适。大概要多久？",
+      "tip": "",
+      "audio": "s/06.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "About forty minutes. Please arrive ten minutes early.",
+      "zh": "四十分钟左右。请提前十分钟到。",
+      "tip": "",
+      "audio": "s/07.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Sorry, could you repeat that? The line is a bit noisy.",
+      "zh": "不好意思，能再说一遍吗？信号有点吵。",
+      "tip": "没听清就用这句，比「pardon?」自然。",
+      "audio": "s/08.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Ten minutes early, please. And bring your insurance card.",
+      "zh": "请提前十分钟到，带上医保卡。",
+      "tip": "",
+      "audio": "s/09.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Got it. See you on Thursday.",
+      "zh": "好的，周四见。",
+      "tip": "",
+      "audio": "s/10.mp3"
+    }
+  ]
+}

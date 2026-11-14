@@ -1,0 +1,81 @@
+{
+  "id": "rent-viewing",
+  "title": "看房租房 · 房租押金",
+  "title_en": "Viewing an Apartment",
+  "tag": "生活",
+  "level": "B1",
+  "intro": "看房必问：房租、含不含水电、押金、租期、厨房。",
+  "format": "sentence-audio",
+  "sentences": [
+    {
+      "role": "staff",
+      "en": "So this is the one-bedroom on the fifth floor. What do you think?",
+      "zh": "这就是五楼的一居室。你觉得怎么样？",
+      "tip": "",
+      "audio": "s/01.mp3"
+    },
+    {
+      "role": "you",
+      "en": "It's brighter than the photos. How much is the rent?",
+      "zh": "比照片上亮。房租多少？",
+      "tip": "",
+      "audio": "s/02.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Eighteen hundred a month, utilities not included.",
+      "zh": "每月一千八，不含水电。",
+      "tip": "utilities 重音在 /tɪl/。",
+      "audio": "s/03.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Does that include internet? I work from home.",
+      "zh": "含网费吗？我在家办公。",
+      "tip": "",
+      "audio": "s/04.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "No, but the building has fiber. It's about forty a month.",
+      "zh": "不含，但楼里有光纤，大概每月四十。",
+      "tip": "",
+      "audio": "s/05.mp3"
+    },
+    {
+      "role": "you",
+      "en": "How long is the lease? And is there a deposit?",
+      "zh": "租期多久？要押金吗？",
+      "tip": "lease 和 deposit 是租房关键词。",
+      "audio": "s/06.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Twelve months, one month's deposit. The landlord prefers a longer stay.",
+      "zh": "一年，押一个月。房东希望住得久一点。",
+      "tip": "",
+      "audio": "s/07.mp3"
+    },
+    {
+      "role": "you",
+      "en": "Could I see the kitchen? I cook a lot.",
+      "zh": "能看看厨房吗？我经常做饭。",
+      "tip": "",
+      "audio": "s/08.mp3"
+    },
+    {
+      "role": "staff",
+      "en": "Sure, it's this way. The fridge was replaced last year.",
+      "zh": "当然，这边走。冰箱去年刚换的。",
+      "tip": "",
+      "audio": "s/09.mp3"
+    },
+    {
+      "role": "you",
+      "en": "I like it. Can I think about it and get back to you tomorrow?",
+      "zh": "我挺喜欢。能考虑一下，明天答复你吗？",
+      "tip": "get back to you 是「回复你」的常用说法。",
+      "audio": "s/10.mp3"
+    }
+  ]
+}
