@@ -741,7 +741,7 @@ async function viewShadow(id) {
 
 async function viewImport() {
   const state = { file: null, en: '', zh: '', sentences: null };
-  const status = h('p', { class: 'muted' }, '选一个视频（或音频），再选它的英文字幕。中文字幕可选，有的话每句下面会显示中文。');
+  const status = h('p', { class: 'muted' }, '选一个视频，然后要么点上面的「在本机自动生成」，要么自己选一份英文字幕。');
 
   // 从安卓分享菜单进来的文件（最多等 1.2 秒，别让存储卡住整页）
   try {

@@ -96,6 +96,19 @@ P0 实际做的：
 
 **没做的**：APK、托管、豆包接入（等 P1/P2 和用户实测）。
 
+## 第五轮（2026-11-14）：本地 Whisper 自动生成字幕
+
+用户选定「Pages 站 + C（手机本地识别）+ 浏览器识别」。实测与实现：
+
+- 用 `transformers.js` + `whisper-tiny.en`（量化，43MB）在浏览器 WASM 单线程跑
+- 本机实测：60 秒音频识别 13.7 秒（约 4.4 倍实时），TED 语音识别质量不错，只有个别词错
+- 中文：本地识别不产出中文，按用户确认先不显示（内置包和 TED 包仍有中文）
+- 模型随站点发布（`models/`），不走 HuggingFace：**浏览器直连 hf-mirror 被 CORS 挡掉**（实测 `Failed to fetch`），HuggingFace 直连也不通
+- base.en（79MB）上传到 GitHub 反复失败（53MB 的 blob 走 API 报 401/超时），所以设置里暂时禁用，只发布 tiny
+- 推送方式最后改用 `git -c http.sslBackend=openssl push`：系统 schannel 的证书库用不了，OpenSSL 后端可以
+
+**踩到的坑**：`git push` 大文件会 408/连接重置；GitHub API 并发上传会 connect timeout；最后靠 API 顺序单文件上传成功（30MB 的 blob 可以，53MB 的不行）。
+
 ## 参考
 
 - [Azure AI 语音定价](https://azure.microsoft.com/zh-cn/pricing/details/speech/)
