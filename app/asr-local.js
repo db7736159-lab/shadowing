@@ -2,6 +2,7 @@
 // 不需要 key、不联网（除了第一次加载识别库），音频不出手机。
 
 import { mergeSentences } from './subtitle.js';
+import { extractWav } from './audio-ffmpeg.js';
 
 // 识别库和 wasm 都放在站点自己的 vendor/ 目录里：
 // 手机连不上 jsDelivr（实测会 Failed to fetch），不能依赖任何 CDN。
@@ -79,14 +80,29 @@ export async function decodeTo16k(blob) {
  * 识别一个视频/音频文件，返回能直接进导入流程的句子。
  * @returns {{sentences: Array<{text,start,end}>, duration: number, text: string}}
  */
-export async function transcribeFile(blob, { model = 'tiny', onProgress } = {}) {
+export async function transcribeFile(blob, { model = 'tiny', onProgress, name = '' } = {}) {
   let phase = 'model';
   try {
     const asr = await loadModel(model, onProgress);
 
     phase = 'decode';
     onProgress?.({ phase: 'decode', pct: 0 });
-    const { pcm, duration } = await decodeTo16k(blob);
+    let pcm;
+    let duration;
+    let truncated = false;
+    try {
+      ({ pcm, duration } = await decodeTo16k(blob));
+    } catch (decodeErr) {
+      // 系统解码器解不开（手机录的 HEVC / 偏门编码）→ 用自带的 ffmpeg 抠音频
+      onProgress?.({ phase: 'ffmpeg', pct: 0 });
+      const wav = await extractWav(blob, {
+        maxSeconds: 300,
+        name,
+        onProgress: (p) => onProgress?.({ phase: 'ffmpeg', pct: p }),
+      });
+      truncated = wav.truncated;
+      ({ pcm, duration } = await decodeTo16k(wav.blob));
+    }
     const seconds = pcm.length / 16000;
 
     phase = 'asr';
@@ -129,6 +145,7 @@ export async function transcribeFile(blob, { model = 'tiny', onProgress } = {}) 
       sentences: merged.map((s) => ({ text: s.text, start: s.start, end: s.end })),
       duration: duration || seconds,
       text: res.text || '',
+      truncated,
     };
   } catch (e) {
     const err = new Error(e && e.message ? e.message : String(e));

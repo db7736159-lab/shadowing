@@ -829,14 +829,16 @@ async function viewImport() {
       const model = store.settings().model || 'tiny';
       const res = await transcribeFile(state.file, {
         model,
+        name: state.file.name,
         onProgress: (p) => {
-          if (p.phase === 'model') asrHint.textContent = `准备模型 ${Math.round((p.pct || 0) * 100)}%`;
+          if (p.phase === 'model') asrHint.textContent = p.retry ? '模型下载重试中…' : `准备模型 ${Math.round((p.pct || 0) * 100)}%`;
           else if (p.phase === 'decode') asrHint.textContent = '解析音频…';
+          else if (p.phase === 'ffmpeg') asrHint.textContent = `这个格式系统解不开，用自带的 ffmpeg 转（第一次要下 31MB）：${Math.round((p.pct || 0) * 100)}%`;
           else if (p.phase === 'asr') asrHint.textContent = `识别中…（音频 ${Math.round(p.seconds)} 秒）`;
         },
       });
       state.sentences = res.sentences;
-      status.textContent = `识别出 ${res.sentences.length} 句（音频 ${Math.round(res.duration)} 秒）。检查一下，没问题点「导入」。`;
+      status.textContent = `识别出 ${res.sentences.length} 句（音频 ${Math.round(res.duration)} 秒）${res.truncated ? '，只处理了前 5 分钟' : ''}。检查一下，没问题点「导入」。`;
       status.style.color = 'var(--good)';
       asrHint.textContent = `用时 ${((Date.now() - t0) / 1000).toFixed(0)} 秒。不满意可以在设置里换「更准版」再跑一次。`;
     } catch (e) {
