@@ -3,7 +3,10 @@
 
 import { mergeSentences } from './subtitle.js';
 
-const LIB = 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.5/dist/transformers.min.js';
+// 识别库和 wasm 都放在站点自己的 vendor/ 目录里：
+// 手机连不上 jsDelivr（实测会 Failed to fetch），不能依赖任何 CDN。
+const LIB = new URL('../vendor/transformers/transformers.min.js', import.meta.url).href;
+const WASM_PATH = new URL('../vendor/transformers/', import.meta.url).href;
 
 export const MODELS = {
   tiny: { id: 'Xenova/whisper-tiny.en', dir: 'whisper-tiny.en', label: '快速版（43MB，约 1 倍实时）' },
@@ -29,6 +32,7 @@ export async function loadModel(model = 'tiny', onProgress) {
   env.allowRemoteModels = false;
   env.localModelPath = new URL('models/', document.baseURI).href;
   env.backends.onnx.wasm.numThreads = 1;
+  env.backends.onnx.wasm.wasmPaths = WASM_PATH;
 
   const pipe = await pipeline('automatic-speech-recognition', MODELS[key].dir, {
     dtype: 'q8',

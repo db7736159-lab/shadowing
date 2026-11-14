@@ -77,8 +77,8 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET') return;
   if (url.origin !== location.origin) return;
 
-  // 识别模型几百 MB，交给 transformers.js 自己的缓存，别塞进 Service Worker 缓存
-  if (url.pathname.includes('/models/')) return;
+  // 识别库 wasm（20MB）和模型（几十 MB）交给浏览器自己的缓存，别塞进 Service Worker 缓存
+  if (url.pathname.includes('/models/') || url.pathname.includes('/vendor/')) return;
 
   // 音频/视频：整段请求走缓存（练过一次就不用再下载）；
   // 带 Range 的分段请求直接放行，避免把半截文件存进缓存。
