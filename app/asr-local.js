@@ -77,6 +77,14 @@ export async function decodeTo16k(blob) {
 }
 
 /**
+ * 只识别出文字（用于打分：录音片段 → 文字），不需要切句。
+ */
+export async function transcribeBlob(blob, { model = 'tiny', onProgress, name = '' } = {}) {
+  const res = await transcribeFile(blob, { model, onProgress, name });
+  return { text: res.text || res.sentences.map((s) => s.text).join(' '), duration: res.duration };
+}
+
+/**
  * 识别一个视频/音频文件，返回能直接进导入流程的句子。
  * @returns {{sentences: Array<{text,start,end}>, duration: number, text: string}}
  */

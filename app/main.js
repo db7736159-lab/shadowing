@@ -7,7 +7,7 @@ import { buildSentences } from './subtitle.js';
 import { imported, mediaUrl, takeShared } from './importer.js';
 import { collect } from './collect.js';
 import { downloadBackup, importBackup } from './backup.js';
-import { transcribeFile } from './asr-local.js';
+import { transcribeFile, transcribeBlob } from './asr-local.js';
 
 const app = $('#app');
 const sheet = $('#sheet');
@@ -201,15 +201,36 @@ async function stopAll() {
     P.lastBlobUrl = recRes.url;
   }
 
-  if (!heard) {
+  let text = heard;
+  let engineUsed = 'browser';
+
+  // 浏览器识别没结果（常见：接口在但连不上 Google 的服务）→ 用本机 Whisper 再试一次
+  const st0 = store.settings();
+  const engineOff = (st0.engine || 'browser') === 'none';
+  if (!text && recRes?.blob && !engineOff) {
+    try {
+      setInterim('浏览器没识别出来，用本机 Whisper 再试…');
+      const local = await transcribeBlob(recRes.blob, { model: st0.model || 'tiny', name: 'rec.webm' });
+      text = local.text;
+      engineUsed = 'local';
+    } catch (e) {
+      P.busy = false;
+      P.result = { empty: true, error: 'local-failed', detail: String(e.message || e), asrError: asrRes?.error };
+      renderPlayer();
+      return;
+    }
+  }
+
+  if (!text) {
     P.busy = false;
-    P.result = { empty: true, error: asrRes?.error };
+    P.result = { empty: true, error: asrRes?.error || 'empty' };
     renderPlayer();
     return;
   }
 
-  const result = scoreAttempt({ refText: P.pack.sentences[P.i].en, heardText: heard, durationSec });
-  result.heard = heard;
+  const result = scoreAttempt({ refText: P.pack.sentences[P.i].en, heardText: text, durationSec });
+  result.heard = text;
+  result.engine = engineUsed;
 
   // 配了 Azure 就用音素级精评；失败就退回浏览器打分，不打断练习
   const st = store.settings();
@@ -253,15 +274,17 @@ function renderResult(pack) {
   if (!r) return null;
   if (r.empty) {
     const why = r.error === 'engine-off' ? '设置里选了「只录音，不识别」'
+      : r.error === 'local-failed' ? `本机识别也失败了（${r.detail || '未知'}）`
+      : r.error === 'network' ? '浏览器识别要连的服务连不上（国内常见）'
       : r.error === 'not-allowed' ? '浏览器拒绝了语音识别权限'
+      : r.error === 'no-speech' ? '没听到声音'
+      : r.error === 'audio-capture' ? '麦克风被占用或不可用'
       : r.error === 'unsupported' ? '这个浏览器没有语音识别接口'
       : '没听到你说的话';
     return h('div', { class: 'card' },
       h('div', { class: 'scorehead' }, h('div', { class: 'big bad' }, '—'), h('div', { class: 'lbl' }, '这次没结果')),
-      h('p', { class: 'muted' }, `${why}。可以再录一次；如果一直这样，先点上面的「示范」听一遍，再检查麦克风权限。`),
-      r.error === 'engine-off'
-        ? h('p', { class: 'muted' }, '想打分就把设置里的识别引擎改成「浏览器识别」。')
-        : h('p', { class: 'muted' }, `刚才识别到：${r.heard || '（空）'}`)
+      h('p', { class: 'muted' }, `${why}${r.asrError ? `（浏览器返回：${r.asrError}）` : ''}。`),
+      h('p', { class: 'muted' }, '再录一次试试；一直不行的话，把设置里的「识别引擎」改成「本机 Whisper」，不依赖浏览器服务。')
     );
   }
 
@@ -300,7 +323,7 @@ function renderResult(pack) {
   return h('div', { class: 'card' },
     h('div', { class: 'scorehead' },
       h('div', { class: `big ${scoreClass(r.total)}` }, String(r.total)),
-      h('div', { class: 'lbl' }, '本句得分' + (r.rate ? ` · ${Math.round(r.rate)} 词/分` : ''))
+      h('div', { class: 'lbl' }, '本句得分' + (r.rate ? ` · ${Math.round(r.rate)} 词/分` : '') + (r.engine === 'local' ? ' · 本机识别' : ''))
     ),
     h('div', { class: 'three' },
       h('div', {}, h('b', {}, String(r.accuracy)), h('span', {}, '准确度')),
@@ -1033,7 +1056,8 @@ async function viewSettings() {
         h('select', {
           onchange: (e) => { store.saveSettings({ engine: e.target.value }); toast('已保存'); },
         },
-          h('option', { value: 'browser', selected: (s.engine || 'browser') === 'browser' ? 'selected' : null }, '浏览器识别（免费，国内安卓可能不可用）'),
+          h('option', { value: 'browser', selected: (s.engine || 'browser') === 'browser' ? 'selected' : null }, '浏览器识别（免费、快；国内可能连不上服务）'),
+          h('option', { value: 'local', selected: s.engine === 'local' ? 'selected' : null }, '本机 Whisper（离线，每句慢 1–2 秒）'),
           h('option', { value: 'none', selected: s.engine === 'none' ? 'selected' : null }, '只录音，不识别（不打分）'),
           h('option', { value: 'doubao', disabled: true }, '豆包识别（待接入）')
         ),
