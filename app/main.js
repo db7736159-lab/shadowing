@@ -743,9 +743,12 @@ async function viewImport() {
   const state = { file: null, en: '', zh: '', sentences: null };
   const status = h('p', { class: 'muted' }, '选一个视频（或音频），再选它的英文字幕。中文字幕可选，有的话每句下面会显示中文。');
 
-  // 从安卓分享菜单进来的文件
+  // 从安卓分享菜单进来的文件（最多等 1.2 秒，别让存储卡住整页）
   try {
-    const shared = await takeShared();
+    const shared = await Promise.race([
+      takeShared(),
+      new Promise((r) => setTimeout(() => r(null), 1200)),
+    ]);
     if (shared) {
       state.file = shared;
       status.textContent = `从分享菜单收到：${shared.name}（${(shared.size / 1e6).toFixed(1)} MB）。还差英文字幕，选一下。`;
