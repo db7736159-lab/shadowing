@@ -1024,7 +1024,7 @@ async function viewSettings() {
           onchange: (e) => { store.saveSettings({ model: e.target.value }); toast('已保存'); },
         },
           h('option', { value: 'tiny', selected: (s.model || 'tiny') === 'tiny' ? 'selected' : null }, '快速版 whisper-tiny（43MB，约 1 倍实时）'),
-          h('option', { value: 'base', selected: s.model === 'base' ? 'selected' : null }, '更准版 whisper-base（79MB，慢 2–3 倍）')
+          h('option', { value: 'base', disabled: true }, '更准版 whisper-base（79MB，暂未随站点发布）')
         )
       )
     ),
