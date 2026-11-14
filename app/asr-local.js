@@ -41,6 +41,11 @@ export async function loadModel(model = 'tiny', onProgress) {
       if (p.status === 'progress' && p.total) onProgress({ phase: 'model', pct: p.progress / 100, file: p.file });
       else if (p.status === 'done') onProgress({ phase: 'model', pct: 1, file: p.name });
     },
+  }).catch(async (err) => {
+    // 手机网络抖一下就整条失败太亏，重试一次
+    onProgress?.({ phase: 'model', pct: 0, retry: true });
+    await new Promise((r) => setTimeout(r, 1200));
+    return pipeline('automatic-speech-recognition', MODELS[key].dir, { dtype: 'q8' });
   });
   pipes.set(key, pipe);
   return pipe;
@@ -75,49 +80,60 @@ export async function decodeTo16k(blob) {
  * @returns {{sentences: Array<{text,start,end}>, duration: number, text: string}}
  */
 export async function transcribeFile(blob, { model = 'tiny', onProgress } = {}) {
-  const asr = await loadModel(model, onProgress);
-  onProgress?.({ phase: 'decode', pct: 0 });
-  const { pcm, duration } = await decodeTo16k(blob);
-  const seconds = pcm.length / 16000;
+  let phase = 'model';
+  try {
+    const asr = await loadModel(model, onProgress);
 
-  onProgress?.({ phase: 'asr', pct: 0, seconds });
-  const res = await asr(pcm, {
-    return_timestamps: true,
-    chunk_length_s: 30,
-    stride_length_s: 5,
-  });
+    phase = 'decode';
+    onProgress?.({ phase: 'decode', pct: 0 });
+    const { pcm, duration } = await decodeTo16k(blob);
+    const seconds = pcm.length / 16000;
 
-  const chunks = (res.chunks || []).map((c) => {
-    const start = Array.isArray(c.timestamp) ? c.timestamp[0] : 0;
-    const end = Array.isArray(c.timestamp) && c.timestamp[1] != null ? c.timestamp[1] : start + 2;
-    const text = (c.text || '')
-      .replace(/\[[^\]]*\]/g, ' ')   // 去掉 [MUSIC] [APPLAUSE] 这类标记
-      .replace(/\s+/g, ' ')
-      .trim();
-    return { start: Math.max(0, start), end: Math.max(start + 0.2, end), text };
-  }).filter((c) => c.text && /[a-z]/i.test(c.text));
+    phase = 'asr';
+    onProgress?.({ phase: 'asr', pct: 0, seconds });
+    const res = await asr(pcm, {
+      return_timestamps: true,
+      chunk_length_s: 30,
+      stride_length_s: 5,
+    });
 
-  // Whisper 常把好几句话塞进一个片段，按标点再切开，时间按字数比例分
-  const split = [];
-  for (const c of chunks) {
-    const parts = c.text.split(/(?<=[.!?])\s+/).filter(Boolean);
-    if (parts.length <= 1) {
-      split.push(c);
-      continue;
+    const chunks = (res.chunks || []).map((c) => {
+      const start = Array.isArray(c.timestamp) ? c.timestamp[0] : 0;
+      const end = Array.isArray(c.timestamp) && c.timestamp[1] != null ? c.timestamp[1] : start + 2;
+      const text = (c.text || '')
+        .replace(/\[[^\]]*\]/g, ' ') // 去掉 [MUSIC] [APPLAUSE] 这类标记
+        .replace(/\s+/g, ' ')
+        .trim();
+      return { start: Math.max(0, start), end: Math.max(start + 0.2, end), text };
+    }).filter((c) => c.text && /[a-z]/i.test(c.text));
+
+    // Whisper 常把好几句话塞进一个片段，按标点再切开，时间按字数比例分
+    const split = [];
+    for (const c of chunks) {
+      const parts = c.text.split(/(?<=[.!?])\s+/).filter(Boolean);
+      if (parts.length <= 1) {
+        split.push(c);
+        continue;
+      }
+      const totalChars = parts.reduce((n, p) => n + p.length, 0) || 1;
+      let t = c.start;
+      for (const p of parts) {
+        const d = (c.end - c.start) * (p.length / totalChars);
+        split.push({ start: t, end: t + d, text: p });
+        t += d;
+      }
     }
-    const totalChars = parts.reduce((n, p) => n + p.length, 0) || 1;
-    let t = c.start;
-    for (const p of parts) {
-      const d = (c.end - c.start) * (p.length / totalChars);
-      split.push({ start: t, end: t + d, text: p });
-      t += d;
-    }
+
+    const merged = mergeSentences(split, { maxGap: 1.0, maxSec: 15, minChars: 12 });
+    return {
+      sentences: merged.map((s) => ({ text: s.text, start: s.start, end: s.end })),
+      duration: duration || seconds,
+      text: res.text || '',
+    };
+  } catch (e) {
+    const err = new Error(e && e.message ? e.message : String(e));
+    err.phase = phase;
+    err.kind = (e && e.name) || 'Error';
+    throw err;
   }
-
-  const merged = mergeSentences(split, { maxGap: 1.0, maxSec: 15, minChars: 12 });
-  return {
-    sentences: merged.map((s) => ({ text: s.text, start: s.start, end: s.end })),
-    duration: duration || seconds,
-    text: res.text || '',
-  };
 }

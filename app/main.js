@@ -806,6 +806,13 @@ async function viewImport() {
     '🎙 没有字幕？在本机自动生成');
   const asrHint = h('p', { class: 'muted', style: 'margin:8px 0 0' },
     'Whisper 在这台手机上跑，音频不上传。3 分钟的视频大概等 3–8 分钟，等的时候别锁屏。');
+  const copyBtn = h('button', {
+    class: 'ctl', style: 'display:none;margin-top:8px;font-size:12px',
+    onclick: () => {
+      const text = `${status.textContent}\n${asrHint.textContent}\nUA: ${navigator.userAgent}`;
+      navigator.clipboard?.writeText(text).then(() => toast('诊断信息已复制'), () => toast('复制失败'));
+    },
+  }, '复制诊断信息');
 
   let asrBusy = false;
   async function runAsr() {
@@ -833,9 +840,17 @@ async function viewImport() {
       status.style.color = 'var(--good)';
       asrHint.textContent = `用时 ${((Date.now() - t0) / 1000).toFixed(0)} 秒。不满意可以在设置里换「更准版」再跑一次。`;
     } catch (e) {
-      status.textContent = '识别失败：' + (e.message || e);
+      const phaseName = { model: '下载/加载模型', decode: '解析音频', asr: '识别' }[e.phase] || '未知';
+      const f = state.file;
+      const detail = `失败在「${phaseName}」；类型 ${e.kind || e.name || '?'}；信息：${e.message || e}`;
+      status.textContent = `识别失败：${detail}；文件 ${f ? `${f.name} / ${(f.size / 1e6).toFixed(1)}MB / ${f.type || '未知类型'}` : '未选'}`;
       status.style.color = 'var(--bad)';
-      asrHint.textContent = '可能是模型文件没下来，或者这个音频格式解不开。也可以改用手动字幕。';
+      asrHint.textContent = e.phase === 'decode'
+        ? '浏览器解不开这个文件的音频（可能是 HEVC / MKV / 特殊编码）。用剪映之类转成 mp4（H.264 + AAC）或 mp3 再试。'
+        : e.phase === 'model'
+          ? '识别库或模型没加载成功。确认网络能开到 db7736159-lab.github.io，再试一次。'
+          : '识别本身出错了，可能是片段太长内存不够，换更短的试试。';
+      copyBtn.style.display = 'inline-flex';
     } finally {
       clearInterval(tick);
       asrBusy = false;
@@ -876,6 +891,7 @@ async function viewImport() {
       h('div', { class: 'field', style: 'background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:16px' },
         h('label', { style: 'margin-bottom:8px' }, '自动生成字幕（推荐）'),
         asrBtn,
+        copyBtn,
         asrHint
       ),
       h('div', { class: 'field' }, h('label', {}, '或者：自己选英文字幕'), enInput),
